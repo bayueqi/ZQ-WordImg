@@ -5,16 +5,695 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZQ-WordImg</title>
     <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="//www.googletagmanager.com">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="icon" href="https://img.520jacky.dpdns.org/i/2026/02/13/579700.svg" type="image/svg+xml">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <!-- 内联必要的CSS -->
+    <style>
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .lg\:flex-row {
+            flex-direction: row;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .space-x-2 {
+            gap: 0.5rem;
+        }
+        
+        .space-y-4 {
+            gap: 1rem;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        .lg\:w-2\/5 {
+            width: 40%;
+        }
+        
+        .lg\:w-3\/5 {
+            width: 60%;
+        }
+        
+        .h-full {
+            height: 100%;
+        }
+        
+        .p-4 {
+            padding: 1rem;
+        }
+        
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+        
+        .mt-3 {
+            margin-top: 0.75rem;
+        }
+        
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+        
+        .md\:text-3xl {
+            font-size: 1.875rem;
+        }
+        
+        .text-lg {
+            font-size: 1.125rem;
+        }
+        
+        .text-sm {
+            font-size: 0.875rem;
+        }
+        
+        .text-xs {
+            font-size: 0.75rem;
+        }
+        
+        .font-bold {
+            font-weight: 700;
+        }
+        
+        .font-semibold {
+            font-weight: 600;
+        }
+        
+        .font-medium {
+            font-weight: 500;
+        }
+        
+        .rounded {
+            border-radius: 0.25rem;
+        }
+        
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        
+        .bg-gray-200 {
+            background-color: #e5e7eb;
+        }
+        
+        .dark\:bg-gray-700 {
+            background-color: #374151;
+        }
+        
+        .bg-blue-500 {
+            background-color: #3b82f6;
+        }
+        
+        .border {
+            border: 1px solid #e5e7eb;
+        }
+        
+        .border-t {
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .dark\:border-gray-700 {
+            border-color: #374151;
+        }
+        
+        .dark\:text-gray-600 {
+            color: #4b5563;
+        }
+        
+        .text-gray-400 {
+            color: #9ca3af;
+        }
+        
+        .text-gray-500 {
+            color: #6b7280;
+        }
+        
+        .text-gray-700 {
+            color: #374151;
+        }
+        
+        .text-white {
+            color: #ffffff;
+        }
+        
+        .grid {
+            display: grid;
+        }
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        
+        .sm\:grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        
+        .md\:grid-cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        
+        .gap-3 {
+            gap: 0.75rem;
+        }
+        
+        .gap-6 {
+            gap: 1.5rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .block {
+            display: block;
+        }
+        
+        .inline-block {
+            display: inline-block;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-left {
+            text-align: left;
+        }
+        
+        .align-middle {
+            vertical-align: middle;
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .h-12 {
+            height: 3rem;
+        }
+        
+        .w-12 {
+            width: 3rem;
+        }
+        
+        .h-2\.5 {
+            height: 0.625rem;
+        }
+        
+        .h-10 {
+            height: 2.5rem;
+        }
+        
+        .w-10 {
+            width: 2.5rem;
+        }
+        
+        .py-1 {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+        
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+        
+        .ml-1 {
+            margin-left: 0.25rem;
+        }
+        
+        .ml-2 {
+            margin-left: 0.5rem;
+        }
+        
+        .mr-1 {
+            margin-right: 0.25rem;
+        }
+        
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+        
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+        
+        .mt-3 {
+            margin-top: 0.75rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1rem;
+        }
+        
+        .pt-3 {
+            padding-top: 0.75rem;
+        }
+        
+        .max-w-full {
+            max-width: 100%;
+        }
+        
+        .max-h-full {
+            max-height: 100%;
+        }
+        
+        .h-auto {
+            height: auto;
+        }
+        
+        .overflow-hidden {
+            overflow: hidden;
+        }
+        
+        .fixed {
+            position: fixed;
+        }
+        
+        .absolute {
+            position: absolute;
+        }
+        
+        .top-0 {
+            top: 0;
+        }
+        
+        .left-0 {
+            left: 0;
+        }
+        
+        .right-0 {
+            right: 0;
+        }
+        
+        .bottom-0 {
+            bottom: 0;
+        }
+        
+        .z-50 {
+            z-index: 50;
+        }
+        
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .lg\:flex-row {
+                flex-direction: column;
+            }
+            
+            .lg\:w-2\/5,
+            .lg\:w-3\/5 {
+                width: 100%;
+            }
+        }
+        
+        /* 自定义样式 */
+        :root {
+            --primary: #5046e5;
+            --primary-light: #6e67eb;
+            --primary-dark: #4338ca;
+            --secondary: #f0f4f8;
+            --text: #1a202c;
+            --text-light: #4a5568;
+            --background: #ffffff;
+            --card-bg: #f7fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+        
+        .dark {
+            --primary: #6e67eb;
+            --primary-light: #8a84ee;
+            --primary-dark: #5046e5;
+            --secondary: #2d3748;
+            --text: #f7fafc;
+            --text-light: #cbd5e0;
+            --background: #111827;
+            --card-bg: #1f2937;
+            --border: #374151;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* 防止移动端出现横向滚动，以及文本/徽章等溢出 */
+        body {
+            overflow-x: hidden;
+        }
+        
+        .text-wrap {
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+        
+        .btn {
+            padding: 1rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.3s;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .btn-primary:active {
+            background-color: var(--primary-dark);
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--border);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        input, select, textarea {
+            background-color: var(--background);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(80, 70, 229, 0.1);
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            background: var(--border);
+            outline: none;
+            margin: 10px 0;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px rgba(80, 70, 229, 0.2);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px rgba(80, 70, 229, 0.2);
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        .loading-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.6);
+            border-radius: 0.5rem;
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+        
+        .image-container {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-bg);
+            position: relative;
+            border-radius: 0.5rem;
+            max-height: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .image-container.gallery-mode {
+            aspect-ratio: auto;
+            max-height: none;
+            overflow: visible;
+        }
+        
+        #imageStatus {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            z-index: 20;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .param-badge {
+            background-color: var(--secondary);
+            color: var(--text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border: 1px solid var(--border);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* 图片与表格在小屏防溢出 */
+        img { max-width: 100%; height: auto; }
+        table { table-layout: fixed; width: 100%; }
+        th, td { word-break: break-word; }
+
+        @media (max-width: 768px) {
+            .mobile-flex-col {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .image-container {
+                max-height: 400px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+    </style>
+    <!-- 使用emoji替代Font Awesome图标 -->
+    <style>
+        /* 自定义图标样式 */
+        .icon {
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+        }
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C1J8LR7EPM"></script>
     <script>
      window.dataLayer = window.dataLayer || [];
@@ -335,18 +1014,18 @@
 <body class="min-h-screen py-4">
     <div class="container mx-auto px-4 py-4 max-w-6xl text-wrap">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl md:text-3xl font-bold flex items-center">
-                🐳&nbsp;在线文生图服务
-            </h1>
-            <div class="flex items-center space-x-2">
-                <button id="themeToggle" class="btn btn-secondary p-2 h-10 w-10 flex items-center justify-center" aria-label="切换暗色主题">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <button id="github" class="btn btn-secondary p-2 h-10 w-10 flex items-center justify-center" aria-label="项目地址" onclick="window.open('https://github.com/BAYUEQI/ZQ-WordImg', '_blank')">
-                    <i class="fa-brands fa-github"></i>
-                </button>
+                <h1 class="text-2xl md:text-3xl font-bold flex items-center">
+                    🐳&nbsp;在线文生图服务
+                </h1>
+                <div class="flex items-center space-x-2">
+                    <button id="themeToggle" class="btn btn-secondary p-2 h-10 w-10 flex items-center justify-center" aria-label="切换暗色主题">
+                        🌙
+                    </button>
+                    <button id="github" class="btn btn-secondary p-2 h-10 w-10 flex items-center justify-center" aria-label="项目地址" onclick="window.open('https://github.com/BAYUEQI/ZQ-WordImg', '_blank')">
+                        🐱
+                    </button>
+                </div>
             </div>
-        </div>
 
         <div class="flex flex-col lg:flex-row gap-6 mobile-flex-col">
             <!-- 左侧控制面板 -->
@@ -354,38 +1033,37 @@
                 <div class="card p-4 space-y-4 fade-in">
                     <div class="flex justify-between items-center">
                         <h2 class="text-lg font-semibold flex items-center">
-                            <i class="fa-solid fa-sliders mr-2 text-primary"></i>
-                            基本设置
+                            ⚙️&nbsp;基本设置
                         </h2>
                         <button id="randomButton" class="btn btn-secondary text-sm py-1 px-3 flex items-center">
-                            <i class="fa-solid fa-dice mr-1"></i> 随机提示词
+                            🎲 随机提示词
                         </button>
                     </div>
                     
                     <div>
                         <label for="password" class="block text-sm font-medium mb-1 flex items-center">
-                            <i class="fa-solid fa-key mr-1 text-xs"></i> 访问密码
+                            🔑 访问密码
                         </label>
                         <input type="password" id="password" placeholder="请输入访问密码" class="w-full" value="admin123">
                     </div>
                     
                     <div>
                         <label for="prompt" class="block text-sm font-medium mb-1 flex items-center">
-                            <i class="fa-solid fa-wand-magic-sparkles mr-1 text-xs"></i> 正向提示词
+                            ✨ 正向提示词
                         </label>
                         <textarea id="prompt" rows="3" placeholder="描述您想要生成的图像内容及样式..." class="w-full">赛博朋克风格的猫</textarea>
                     </div>
                     
                     <div>
                         <label for="negative_prompt" class="block text-sm font-medium mb-1 flex items-center">
-                            <i class="fa-solid fa-ban mr-1 text-xs"></i> 反向提示词
+                            ❌ 反向提示词
                         </label>
                         <textarea id="negative_prompt" rows="2" placeholder="描述在生成的图像中要避免的元素文本..." class="w-full"></textarea>
                     </div>
                     
                     <div>
                         <label for="model" class="block text-sm font-medium mb-1 flex items-center">
-                            <i class="fa-solid fa-robot mr-1 text-xs"></i> 文生图模型
+                            🤖 文生图模型
                         </label>
                         <select id="model" class="w-full">
                             <option value="loading" disabled selected>加载中...</option>
@@ -396,13 +1074,13 @@
                     <div id="img2imgInputs" class="hidden space-y-2">
                         <div>
                             <label for="image_url" class="block text-sm font-medium mb-1 flex items-center">
-                                <i class="fa-solid fa-image mr-1 text-xs"></i> 输入图像URL（必填）
+                                🖼️ 输入图像URL（必填）
                             </label>
                             <input type="url" id="image_url" placeholder="https://example.com/your-image.png" class="w-full">
                         </div>
                         <div>
                         <label for="mask_url" class="block text-sm font-medium mb-1 flex items-center">
-                                <i class="fa-solid fa-mask mr-1 text-xs"></i> 遮罩图像URL（必填，inpainting 使用）
+                                🎭 遮罩图像URL（必填，inpainting 使用）
                             </label>
                             <input type="url" id="mask_url" placeholder="https://example.com/your-mask.png" class="w-full">
                         </div>
@@ -412,11 +1090,10 @@
                 <div class="card p-4 space-y-4 fade-in">
                     <div class="flex justify-between items-center">
                         <h2 class="text-lg font-semibold flex items-center">
-                            <i class="fa-solid fa-gear mr-2 text-primary"></i>
-                            高级选项
+                            🔧&nbsp;高级选项
                         </h2>
                         <button id="toggleAdvanced" class="text-xs btn btn-secondary py-1 px-3 flex items-center">
-                            <i class="fa-solid fa-chevron-down mr-1" id="advancedIcon"></i> 显示/隐藏
+                            ▼ 显示/隐藏
                         </button>
                     </div>
                     
@@ -424,7 +1101,7 @@
                         <div>
                             <div class="flex justify-between items-center">
                                 <label for="width" class="block text-sm font-medium flex items-center">
-                                    <i class="fa-solid fa-arrows-left-right mr-1 text-xs"></i> 图像宽度
+                                    ↔️ 图像宽度
                                 </label>
                                 <span id="widthValue" class="text-sm font-mono">512px</span>
                             </div>
@@ -434,7 +1111,7 @@
                         <div>
                             <div class="flex justify-between items-center">
                                 <label for="height" class="block text-sm font-medium flex items-center">
-                                    <i class="fa-solid fa-arrows-up-down mr-1 text-xs"></i> 图像高度
+                                    ↕️ 图像高度
                                 </label>
                                 <span id="heightValue" class="text-sm font-mono">512px</span>
                             </div>
@@ -444,7 +1121,7 @@
                         <div>
                             <div class="flex justify-between items-center">
                                 <label for="num_steps" class="block text-sm font-medium flex items-center tooltip">
-                                    <i class="fa-solid fa-shoe-prints mr-1 text-xs"></i> 迭代步数
+                                    👣 迭代步数
                                     <span class="tooltiptext">更高的步数通常会产生更精细的细节，但需要更长的处理时间</span>
                                 </label>
                                 <span id="num_stepsValue" class="text-sm font-mono">20</span>
@@ -455,7 +1132,7 @@
                         <div>
                             <div class="flex justify-between items-center">
                                 <label for="guidance" class="block text-sm font-medium flex items-center tooltip">
-                                    <i class="fa-solid fa-compass mr-1 text-xs"></i> 引导系数
+                                    🧭 引导系数
                                     <span class="tooltiptext">控制生成图像与提示词的匹配程度，较高的值会更严格遵循提示词</span>
                                 </label>
                                 <span id="guidanceValue" class="text-sm font-mono">7.5</span>
@@ -465,13 +1142,13 @@
                         
                         <div>
                             <label for="seed" class="block text-sm font-medium mb-1 flex items-center tooltip">
-                                <i class="fa-solid fa-seedling mr-1 text-xs"></i> 随机种子
+                                🌱 随机种子
                                 <span class="tooltiptext">使用相同的种子值可以在其他参数相同的情况下生成相似的图像</span>
                             </label>
                             <div class="flex gap-2">
                                 <input type="number" id="seed" placeholder="随机种子值" class="w-full">
                                 <button id="randomSeed" class="btn btn-secondary text-sm py-1 px-3">
-                                    <i class="fa-solid fa-random"></i>
+                                    🔀
                                 </button>
                             </div>
                             <p class="text-xs text-gray-500 mt-1">留空则随机生成</p>
@@ -480,7 +1157,7 @@
                 </div>
                 
                 <button id="submitButton" class="btn btn-primary w-full py-3 flex items-center justify-center">
-                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> 生成图像
+                    ✨ 生成图像
                 </button>
             </div>
             
@@ -489,18 +1166,17 @@
                 <div class="card h-full p-4 space-y-4 fade-in">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                         <h2 class="text-lg font-semibold flex items-center">
-                            <i class="fa-solid fa-image mr-2 text-primary"></i>
-                            生成结果
+                            🖼️&nbsp;生成结果
                         </h2>
                         <div class="flex flex-wrap gap-2 md:space-x-2 md:gap-0">
                             <button id="copyParamsButton" class="btn btn-secondary text-sm py-1 px-3 hidden">
-                                <i class="fa-solid fa-copy mr-1"></i> 复制参数
+                                📋 复制参数
                             </button>
                             <button id="downloadButton" class="btn btn-secondary text-sm py-1 px-3 hidden">
-                                <i class="fa-solid fa-download mr-1"></i> 下载图像
+                                💾 下载图像
                             </button>
                             <button id="downloadZipButton" class="btn btn-secondary text-sm py-1 px-3 hidden">
-                                <i class="fa-solid fa-file-zipper mr-1"></i> 下载ZIP
+                                📦 下载ZIP
                             </button>
                         </div>
                     </div>
@@ -523,7 +1199,7 @@
                             </div>
                         </div>
                         <div id="initialPrompt" class="text-center text-gray-400 dark:text-gray-600">
-                            <i class="fa-solid fa-image-portrait text-4xl mb-2"></i>
+                            🖼️
                             <p>点击生成按钮开始创建图像</p>
                         </div>
                         <span id="imageStatus" class="bg-gray-300 text-gray-700 hidden">状态</span>
@@ -534,42 +1210,42 @@
                     <div id="imageInfo" class="space-y-3 mt-2">
                         <div class="grid grid-cols-2 gap-3">
                             <div class="text-sm flex items-center">
-                                <span class="font-medium flex items-center">
-                                    <i class="fa-regular fa-clock mr-1 text-xs"></i> 生成时间：
-                                </span>
-                                <span id="generationTime" class="ml-1">-</span>
-                            </div>
-                            <div class="text-sm flex items-center">
-                                <span class="font-medium flex items-center">
-                                    <i class="fa-solid fa-microchip mr-1 text-xs"></i> 使用模型：
-                                </span>
-                                <span id="usedModel" class="ml-1">-</span>
-                            </div>
-                            <div class="text-sm flex items-center">
-                                <span class="font-medium flex items-center">
-                                    <i class="fa-solid fa-bolt mr-1 text-xs"></i> 算力估计：
-                                </span>
-                                <span id="computeInfo" class="ml-1">-</span>
-                                <span class="text-xs text-gray-500 ml-2">(it/s)</span>
-                            </div>
-                            <div class="text-sm flex items-center">
-                                <span class="font-medium flex items-center">
-                                    <i class="fa-solid fa-database mr-1 text-xs"></i> 输出大小：
-                                </span>
-                                <span id="imageSize" class="ml-1">-</span>
-                            </div>
+                <span class="font-medium flex items-center">
+                    🕒 生成时间：
+                </span>
+                <span id="generationTime" class="ml-1">-</span>
+            </div>
+            <div class="text-sm flex items-center">
+                <span class="font-medium flex items-center">
+                    🖥️ 使用模型：
+                </span>
+                <span id="usedModel" class="ml-1">-</span>
+            </div>
+            <div class="text-sm flex items-center">
+                <span class="font-medium flex items-center">
+                    ⚡ 算力估计：
+                </span>
+                <span id="computeInfo" class="ml-1">-</span>
+                <span class="text-xs text-gray-500 ml-2">(it/s)</span>
+            </div>
+            <div class="text-sm flex items-center">
+                <span class="font-medium flex items-center">
+                    📏 输出大小：
+                </span>
+                <span id="imageSize" class="ml-1">-</span>
+            </div>
                         </div>
                         
                         <div id="allParamsContainer" class="hidden mt-3 border-t border-gray-200 dark:border-gray-700 pt-3">
                             <h3 class="text-sm font-medium mb-2 flex items-center">
-                                <i class="fa-solid fa-list-check mr-1"></i> 所有参数
+                                📋 所有参数
                             </h3>
                             <div id="allParams" class="flex flex-wrap"></div>
                         </div>
 
                         <div id="imageMeta" class="hidden mt-3 border-t border-gray-200 dark:border-gray-700 pt-3">
                             <h3 class="text-sm font-medium mb-2 flex items-center">
-                                <i class="fa-solid fa-table mr-1"></i> 每张图片信息
+                                📊 每张图片信息
                             </h3>
                             <table class="w-full text-xs">
                                 <thead>
@@ -667,50 +1343,47 @@
             })();
             
             // 主题切换功能相关代码
-            const themeToggle = document.getElementById('themeToggle');
-            const html = document.documentElement;
-            const moonIcon = `<i class="fa-solid fa-moon"></i>`;
-            const sunIcon = `<i class="fa-solid fa-sun"></i>`;
-            
-            // 检查系统主题或存储的主题并设置初始状态
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-                themeToggle.innerHTML = sunIcon;
-                themeToggle.setAttribute('aria-label', '切换亮色主题');
-            } else {
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const moonIcon = '🌙';
+        const sunIcon = '☀️';
+        
+        // 检查系统主题或存储的主题并设置初始状态
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            themeToggle.textContent = sunIcon;
+            themeToggle.setAttribute('aria-label', '切换亮色主题');
+        } else {
+            html.classList.remove('dark');
+            themeToggle.textContent = moonIcon;
+            themeToggle.setAttribute('aria-label', '切换暗色主题');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
-                themeToggle.innerHTML = moonIcon;
+                localStorage.theme = 'light';
+                themeToggle.textContent = moonIcon;
                 themeToggle.setAttribute('aria-label', '切换暗色主题');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeToggle.textContent = sunIcon;
+                themeToggle.setAttribute('aria-label', '切换亮色主题');
             }
-            
-            themeToggle.addEventListener('click', function() {
-                if (html.classList.contains('dark')) {
-                    html.classList.remove('dark');
-                    localStorage.theme = 'light';
-                    themeToggle.innerHTML = moonIcon;
-                    themeToggle.setAttribute('aria-label', '切换暗色主题');
-                } else {
-                    html.classList.add('dark');
-                    localStorage.theme = 'dark';
-                    themeToggle.innerHTML = sunIcon;
-                    themeToggle.setAttribute('aria-label', '切换亮色主题');
-                }
-            });
+        });
             
             // 高级选项切换
             const toggleAdvanced = document.getElementById('toggleAdvanced');
             const advancedOptions = document.getElementById('advancedOptions');
-            const advancedIcon = document.getElementById('advancedIcon');
             
             toggleAdvanced.addEventListener('click', function() {
                 if (advancedOptions.classList.contains('hidden')) {
                     advancedOptions.classList.remove('hidden');
-                    advancedIcon.classList.remove('fa-chevron-down');
-                    advancedIcon.classList.add('fa-chevron-up');
+                    toggleAdvanced.innerHTML = '▲ 显示/隐藏';
                 } else {
                     advancedOptions.classList.add('hidden');
-                    advancedIcon.classList.remove('fa-chevron-up');
-                    advancedIcon.classList.add('fa-chevron-down');
+                    toggleAdvanced.innerHTML = '▼ 显示/隐藏';
                 }
             });
             
@@ -864,35 +1537,34 @@
             });
 
             // 下载 ZIP（多图）
-            document.getElementById('downloadZipButton').addEventListener('click', async function() {
-                if (!currentImagesArray || currentImagesArray.length === 0) {
-                    showStatus('没有可打包的图片', 'error');
-                    return;
-                }
-                try {
-                    const zip = new JSZip();
-                    const model = document.getElementById('usedModel').textContent || 'ai-image';
-                    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-                    for (let i = 0; i < currentImagesArray.length; i++) {
-                        const dataURL = currentImagesArray[i];
-                        const base64 = dataURL.split(',')[1];
-                        zip.file(`${model}-${timestamp}-${i+1}.png`, base64, { base64: true });
-                    }
-                    const blob = await zip.generateAsync({ type: 'blob' });
+        document.getElementById('downloadZipButton').addEventListener('click', async function() {
+            if (!currentImagesArray || currentImagesArray.length === 0) {
+                showStatus('没有可打包的图片', 'error');
+                return;
+            }
+            try {
+                // 由于移除了JSZip库，这里改为逐个下载图片
+                showStatus('开始下载图片...', 'info');
+                currentImagesArray.forEach(async (dataURL, index) => {
+                    const response = await fetch(dataURL);
+                    const blob = await response.blob();
                     const url = window.URL.createObjectURL(blob);
                     const link = document.createElement('a');
                     link.href = url;
-                    link.download = `${model}-${timestamp}.zip`;
+                    const model = document.getElementById('usedModel').textContent || 'ai-image';
+                    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                    link.download = `${model}-${timestamp}-${index+1}.png`;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
                     window.URL.revokeObjectURL(url);
-                    showStatus('ZIP 下载已开始', 'success');
-                } catch (e) {
-                    console.error('ZIP打包失败:', e);
-                    showStatus('打包ZIP失败', 'error');
-                }
-            });
+                });
+                showStatus('图片下载已开始', 'success');
+            } catch (e) {
+                console.error('下载失败:', e);
+                showStatus('下载失败', 'error');
+            }
+        });
             
             // 提交生成请求
             // 复用全局的计时器与控制器，避免闪烁
@@ -1441,5 +2113,4 @@
     </script>
 </body>
 </html>
-
 
