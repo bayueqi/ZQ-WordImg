@@ -1,102 +1,130 @@
-<div align="center">
-  <h1>ZQ-WordImg</h1>
-  <p>基于 Cloudflare Workers AI 的在线文生图/图生图/重绘服务，开箱即用。</p>
-</div>
+# 🧠 ZQ-AiTool
+
+一个功能强大的All-in-One AI工具箱，集成了聊天、语音处理和图像生成功能，完全基于Cloudflare Workers实现。
+
+## ✨ 功能特性
+
+### 💬 AiChat - 智能对话
+- 支持Cloudflare Workers AI和外部API双模式
+- 流式响应，实时展示AI输出
+- 支持多种模型配置
+- 可自定义系统提示词
+- 完整的聊天历史记录（自动保存近30天）
+- 配置持久化到KV存储
+
+### 🎤 VoiceCraft - 语音处理
+**文本转语音 (TTS)**
+- 支持20+种语音选择
+- 可调节语速、音调、音量
+- 多种语音风格（普通、温柔、活泼等）
+- 支持文本输入和文件上传
+- 智能文本分块，支持长文本处理
+
+**语音转文本 (STT)**
+- 支持多种音频格式（mp3, wav, m4a, flac, aac, ogg, webm, amr, 3gp）
+- 拖拽上传，简单快捷
+- 一键复制转录结果
+
+### 🎨 WordImg - 图像生成
+- 支持多种图像生成模型（Stable Diffusion、Flux等）
+- 支持img2img图像生成
+- 支持inpainting图像编辑
+- 可调节图片尺寸、步数、提示词强度等参数
+- 提供随机提示词功能
+- 一键下载所有图片为压缩包
+
+## 🚀 部署指南
+
+### 前置准备
+1. 创建Cloudflare KV命名空间
+   - 登录[Cloudflare Dashboard](https://dash.cloudflare.com)
+   - 进入"Workers & Pages" -> "KV"
+   - 点击"Create a namespace"，命名为`AiTool`
+   - 复制命名空间ID
+
+### Cloudflare Workers 部署
+
+1. 准备`_worker.js`文件
+2. 登录[Cloudflare Dashboard](https://dash.cloudflare.com)
+3. 进入"Workers & Pages" -> "Create application"
+4. 选择"Create Worker"
+5. 将`_worker.js`的内容复制到编辑器中
+6. 点击"Save and Deploy"
+7. 配置绑定：
+   - **AI绑定**：在Worker设置中，找到"Variables" -> "AI"，点击"Add Binding"，命名为`AI`
+   - **KV绑定**：在"Variables" -> "KV"，点击"Add Binding"，命名为`AiTool`，选择你创建的KV命名空间
+   - **密码绑定**：在"Variables" -> "Environment Variables"，点击"Add variable"，命名为`PASSWORD`，设置您的访问密码
+
+### 配置说明
+
+#### Workers AI 配置
+- 确保在Worker设置中绑定了AI模型
+- 模型列表会根据您的Cloudflare AI服务可用模型自动加载
+
+#### 外部 API 配置
+- 在聊天设置中切换到"外部 API"模式
+- 填写API地址（如：https://api.deepseek.com/v1/chat/completions）
+- 填写API Key
+- 填写模型名称（如：deepseek-chat）
+- 点击"保存配置"按钮保存到KV存储
+
+#### 配置持久化
+- 点击"加载配置"从KV中恢复保存的配置
+- 点击"保存配置"将当前配置保存到KV
+- 配置包括：API模式、模型选择、API地址、API Key、系统提示词等
+
+## 📖 使用说明
+
+### 对话 使用
+1. 在侧边栏选择"对话"工具
+2. 首次使用建议点击"加载配置"恢复之前的设置
+3. 根据需要切换API模式（Workers AI或外部API）
+4. 配置模型和系统提示词（可选）
+5. 在输入框中输入问题，按回车或点击发送
+6. 等待AI响应，支持流式展示
+7. 对话会自动保存到历史记录，可在侧边栏查看和管理
+
+### 文图转换 使用
+1. 在侧边栏选择"文图转换"工具
+2. 选择图像生成模型
+3. 输入提示词
+4. 配置图片参数（尺寸、步数、提示词强度、生成数量、随机种子等）
+5. 点击"生成图片"
+6. 等待生成完成后，可查看、单独下载或点击"下载全部"打包下载所有图片
+
+### 文字语音转换 使用
+
+#### 文字转语音
+1. 在侧边栏选择"文字语音转换"工具
+2. 直接输入文本或切换到"文件"标签上传txt文件
+3. 配置语音参数（语音、语速、音调、风格）
+4. 点击"生成语音"
+5. 等待生成完成后，可播放或下载音频
+
+#### 语音转文字
+1. 点击或拖拽上传音频文件
+2. 点击"开始转录"
+3. 等待转录完成后，可查看、复制结果
 
 
-### 功能总览
+## 🛠️ 技术栈
 
-- 多模型：SDXL、FLUX、DreamShaper、Lightning、SD1.5 图生图、SD1.5 局部重绘
-- 一次生成 1–8 张，画廊预览 + 悬浮操作（放大/复制/单张下载）
-- 批量下载 ZIP、复制参数、显示每张尺寸与大小
-- 真实 it/s 指标（服务端推理耗时），带进度条与 60s 超时提示
-- 登录认证（Cookie），支持密码保护、明暗主题、自适应移动端
+- **后端**: Cloudflare Workers
+- **AI模型**: Cloudflare Workers AI + 外部API
+- **数据存储**: Cloudflare KV
+- **语音合成**: Microsoft Edge TTS
+- **语音识别**: 可配置外部API
+- **前端**: 原生HTML/CSS/JavaScript
+- **压缩库**: JSZip
 
----
+## 📝 注意事项
 
-## 一键部署
-
-1) Cloudflare 控制台 → Workers & Pages → 创建 Worker → 部署。
-
-2) 绑定 Workers AI：设置 → 绑定 → 添加绑定 → 类型选 “Workers AI”，变量名填 `AI` → 保存。
-
-3) 复制代码：将 `worker.js` 与 `index.html` 内容分别放入同名文件，保存并部署。
-
-4) 可选：设置自定义域（设置 → 域和路由）。
-
-完成后访问 `https://<name>.<subdomain>.workers.dev/` 即可使用。
-
----
-
-## 使用说明（前端）
-
-- 基本：输入访问密码（若启用）→ 填写提示词 → 选择模型 → 配置尺寸/步数/引导/种子 → 选择“生成数量” → 生成。
-- 画廊：多图时显示网格，悬浮显示操作条（放大/复制/下载）。支持 ZIP 批量下载。
-- 指标：右栏显示生成时间、使用模型、it/s（步数/秒）、输出大小、所有参数；下方表格列出每张图片的尺寸与大小。
-- 进度：进度条最多推进到 95%，图片真正完成后封顶 100%。
-
----
-
-## 模型能力与适用场景
-
-| 模型 ID | 类型 | 适合图片/场景 | 建议 | 备注 |
-| --- | --- | --- | --- | --- |
-| stable-diffusion-xl-base-1.0 | 文生图 | 通用写实/插画、高分辨率 1024×1024，人物/风景/产品图 | 步数 20 左右，宽高 1024 起步 | 质量稳定、细节好，速度中等 |
-| flux-1-schnell | 文生图（快速） | 快速草图/封面/风格化作品，追求速度的场景 | 步数 4–8（已自动限制），较小分辨率起步 | 返回 JSON（base64）→ 已在后端转为 PNG 输出 |
-| dreamshaper-8-lcm | 文生图（LCM） | 二次元/插画/艺术风格，迭代少、出图快 | 步数 8–12，512–768 更稳 | 风格统一、对细节追求适中 |
-| stable-diffusion-xl-lightning | 文生图（极速） | 秒级出图、快速迭代与方案对比 | 极少步数（1–4），512–768 | 速度快、细节欠佳，适合草稿 |
-| stable-diffusion-v1-5-img2img | 图生图 | 风格迁移、构图保持、低侵入式修改 | 需传 `image_url`，步数与 strength 控制变化幅度 | 输入图必须是图片直链（image/*）≤10MB |
-| stable-diffusion-v1-5-inpainting | 局部重绘 | 遮罩内替换/修复/擦除/换物 | 需 `image_url` + `mask_url`，mask 黑白/透明区域为编辑区 | 遮罩与原图分辨率一致更稳 |
-
-> 小贴士：遇到 3001/内部错误，优先降低尺寸到 512–768、减少步数，并确认 `image_url/mask_url` 为可访问的图片直链且不超过 10MB。
-
----
-
-## 后端接口
-
-- GET `/api/models`：返回可用模型清单（含 `requiresImage/Mask`）。
-- GET `/api/prompts`：随机提示词。
-- GET `/api/config`：是否启用密码。
-- POST `/api/auth`：提交 `{ password }` 设置 Cookie 登录。
-- POST `/`：生成图片
-  - 入参（JSON）：
-    - 通用：`prompt, negative_prompt, model, width, height, num_steps, guidance, seed, num_outputs(1-8)`
-    - 图生图：另需 `image_url`
-    - 重绘：另需 `image_url, mask_url`
-  - 出参：
-    - 单图：二进制 PNG，头部包含 `X-Used-Model / X-Server-Seconds / X-Image-Bytes`
-    - 多图：`{ images: [dataURL...] }` JSON，头部含 `X-Server-Seconds`
-
-示例（cURL）：
-
-```bash
-curl -X POST https://<worker>.<subdomain>.workers.dev/ \
-  -H 'Content-Type: application/json' -H 'Accept: image/*' \
-  -d '{
-    "prompt":"a cyberpunk cat",
-    "model":"stable-diffusion-xl-base-1.0",
-    "width":1024,"height":1024,"num_steps":20,"guidance":7.5,
-    "num_outputs":1
-  }' --output out.png
-```
-
----
-
-## 配置与自定义
-
-- 模型清单：编辑 `worker.js` 中 `AVAILABLE_MODELS` 可增删/改描述、是否需要图片/遮罩。
-- 随机提示词：在 `RANDOM_PROMPTS` 维护。
-- 密码：`PASSWORDS=['admin123']`（留空即无密码），前端含登录遮罩与 Cookie 认证。
-- 生成数量：默认开放 1–8，可在前端下拉与后端上限同步调整。
-
----
-
-## 常见问题
-
-- 3001 Unknown internal error：通常为尺寸/步数过大或图片直链不规范。将宽高调到 512–768、步数 < 20；确保 `image_url`/`mask_url` 响应头为 `image/*` 且 ≤10MB。
-- 3030 missing mask_image：使用 inpainting 时必须提供 `mask_url`（已在前端/后端分别做必填校验）。
-- it/s 为什么波动：以服务端推理耗时为准（`X-Server-Seconds`），网络/解码不会影响该指标。
-
----
+1. **Workers AI 配额**: 注意Cloudflare Workers AI的使用配额限制
+2. **外部API Key**: 妥善保管您的API Key，虽然配置保存在KV中，但不要分享您的Worker给他人
+3. **KV存储**: KV存储有免费额度限制，对话历史会自动清理30天前的记录
+4. **文件大小限制**: 
+   - TTS支持最大500KB的txt文件
+   - STT支持最大10MB的音频文件
+5. **长文本处理**: TTS会自动将长文本分块处理
 
 
